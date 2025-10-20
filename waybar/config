@@ -1,39 +1,45 @@
 {
-  "layer": "top",
-  "position": "top",
-  "height": 32,
-  "modules-left": ["custom/hypr-workspaces"],
-  "modules-center": ["clock"],
-  "modules-right": ["pulseaudio", "network", "battery", "custom/wp-button"],
-  "custom/hypr-workspaces": {
-    "exec": "~/.config/source-of-truth/scripts/hypr-workspaces-json.sh",
-    "interval": 2,
-    "format": "{text}",
-    "return-type": "json"
-  },
-  "clock": {
-    "format": "{:%a %b %d  %H:%M:%S}",
-    "interval": 1
-  },
-  "pulseaudio": {
-    "format": "{volume}% {icon}",
-    "format-muted": "",
-    "format-icons": ["", ""],
-    "scroll-step": 5
-  },
-  "network": {
-    "format-wifi": " {essid}",
-    "format-ethernet": " wired",
-    "format-disconnected": " no network"
-  },
-  "battery": {
-    "format": "{capacity}% {icon}",
-    "format-icons": ["", "", "", "", ""]
-  },
-  "custom/wp-button": {
-    "format": "🎨",
-    "tooltip": "Change wallpaper",
-    "on-click": "~/.config/source-of-truth/scripts/pick-colors.sh",
-    "interval": 0
-  }
+    //-*- mode: jsonc -*-
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "network", "battery", "custom/wp-button"],
+
+    "hyprland/workspaces": {
+        "on-click": "activate"
+    },
+
+    "clock": {
+        "format": "{:%a %b %d  %H:%M:%S}",
+        "interval": 1
+    },
+
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-muted": " Muted",
+        "format-icons": ["", ""],
+        "scroll-step": 5,
+        "on-click": "pavucontrol-qt"
+    },
+
+    "network": {
+        "format-wifi": " {essid}",
+        "format-ethernet": " Wired",
+        "format-disconnected": " Disconnected",
+        "on-click": "nm-connection-editor"
+    },
+
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "custom/wp-button": {
+        "format": "🎨",
+        "tooltip": "Change wallpaper and theme",
+        "on-click": "~/.config/source-of-truth/scripts/pick-colors.sh",
+        "interval": 0
+    }
 }
