@@ -248,8 +248,8 @@ ACCENT_INACTIVE="$(mix_hex "$ACCENT2" "$BG" 0.55)"
 ACCENT_ACTIVE_RGB=$(hex_to_rgb "${ACCENT1}")
 ACCENT_INACTIVE_RGB=$(hex_to_rgb "${ACCENT_INACTIVE}")
 
-MODULE_BG="rgba(${ACCENT1_RGB},${MODULE_BG_ALPHA})"
-MODULE_HOVER_BG="rgba(${ACCENT1_RGB},${MODULE_HOVER_ALPHA})"
+MODULE_BG="rgba(${ACCENT_ACTIVE_RGB},${MODULE_BG_ALPHA})"
+MODULE_HOVER_BG="rgba(${ACCENT_ACTIVE_RGB},${MODULE_HOVER_ALPHA})"
 SUBTLE_RGB=$(hex_to_rgb "$SUBTLE")
 SUBTLE_BG="rgba(${SUBTLE_RGB},${MODULE_BG_ALPHA})"
 
@@ -279,13 +279,13 @@ cat > "$TMP_CSS" <<EOF
 }
 
 /* workspace container */
-#workspaces {
+#custom-hypr-workspaces {
     padding-left: 6px;
     margin-right: 8px;
 }
 
 /* workspace child elements (JSON-mode) */
-#workspaces > .workspace {
+#custom-hypr-workspaces > .workspace {
     color: #${ACCENT2};
     background: rgba(${ACCENT_INACTIVE_RGB},0.14);
     padding: 4px 10px;
@@ -297,24 +297,24 @@ cat > "$TMP_CSS" <<EOF
 }
 
 /* focused workspace accent */
-#workspaces > .workspace.focused {
+#custom-hypr-workspaces > .workspace.focused {
     color: #${BG};
     background-color: ${ACCENT_ACTIVE};
 }
 
 /* occupied but not focused */
-#workspaces > .workspace.occupied {
+#custom-hypr-workspaces > .workspace.occupied {
     background: rgba(${ACCENT_INACTIVE_RGB},0.22);
 }
 
 /* urgent */
-#workspaces > .workspace.urgent {
+#custom-hypr-workspaces > .workspace.urgent {
     color: #ffffff;
     background-color: rgba(200,60,60,0.95);
 }
 
 /* decorative runes (best-effort). If pseudo-elements are unsupported you will simply not see them. */
-#workspaces > .workspace::before {
+#custom-hypr-workspaces > .workspace::before {
     content: "᚛";
     margin-right: 6px;
     opacity: 0.9;
@@ -322,13 +322,13 @@ cat > "$TMP_CSS" <<EOF
 }
 
 /* focused rune variant */
-#workspaces > .workspace.focused::before {
+#custom-hypr-workspaces > .workspace.focused::before {
     content: "᚜";
     color: #${HIGHLIGHT};
 }
 
 /* hover */
-#workspaces > .workspace:hover {
+#custom-hypr-workspaces > .workspace:hover {
     color: #${BG};
     background-color: rgba(${ACCENT_ACTIVE_RGB},0.26);
 }
