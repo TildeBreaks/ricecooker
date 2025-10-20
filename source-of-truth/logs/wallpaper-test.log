@@ -1,0 +1,29 @@
+[2025-10-19 17:08:54] [INFO] Starting wallpaper test...
+[2025-10-19 17:08:54] [INFO] swww-daemon not running, starting...
+        14ms [INFO]  BumpPool with: 1 buffers. Size: 8100Kb
+        24ms [INFO]  BumpPool with: 1 buffers. Size: 19350Kb
+        66ms [WARN]  We failed to find wayland buffer with id: 15. This should be impossible.
+        66ms [WARN]  We failed to find wayland buffer with id: 22. This should be impossible.
+[2025-10-19 17:08:55] [INFO] Attempting to set wallpaper: /home/breaks/.config/source-of-truth/wallpapers/wp11165518.png
+      1169ms [INFO]  BumpPool with: 1 buffers. Size: 8100Kb
+      1170ms [INFO]  BumpPool with: 1 buffers. Size: 19350Kb
+[2025-10-19 17:08:55] [SUCCESS] Wallpaper set successfully.
+[2025-10-19 17:08:55] [DONE] Wallpaper test completed.
+      1203ms [INFO]  BumpPool with: 2 buffers. Size: 16200Kb
+      1205ms [INFO]  BumpPool with: 2 buffers. Size: 38700Kb
+[2025-10-19 17:09:22] [INFO] Starting wallpaper test...
+[2025-10-19 17:09:22] [INFO] swww-daemon already running.
+[2025-10-19 17:09:22] [INFO] Attempting to set wallpaper: /home/breaks/.config/source-of-truth/wallpapers/wp11165518.png
+[2025-10-19 17:09:22] [SUCCESS] Wallpaper set successfully.
+[2025-10-19 17:09:22] [DONE] Wallpaper test completed.
+[2025-10-19 17:09:28] [INFO] Starting wallpaper test...
+[2025-10-19 17:09:28] [INFO] swww-daemon already running.
+[2025-10-19 17:09:28] [INFO] Attempting to set wallpaper: /home/breaks/.config/source-of-truth/wallpapers/wp11165518.png
+[2025-10-19 17:09:28] [SUCCESS] Wallpaper set successfully.
+[2025-10-19 17:09:28] [DONE] Wallpaper test completed.
+    377093ms [WARN]  We failed to find wayland buffer with id: 11. This should be impossible.
+    377093ms [WARN]  We failed to find wayland buffer with id: 22. This should be impossible.
+    377094ms [WARN]  We failed to find wayland buffer with id: 15. This should be impossible.
+    377094ms [WARN]  We failed to find wayland buffer with id: 25. This should be impossible.
+    507865ms [INFO]  Removed socket at "/run/user/1000/wayland-1-swww-daemon..sock"
+    507865ms [INFO]  Goodbye!

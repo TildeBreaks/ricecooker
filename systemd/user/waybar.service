@@ -1,0 +1,18 @@
+[Unit]
+Description=Waybar status bar
+# After graphical-session.target is a convention; systemd user may not have it — it's harmless.
+After=graphical-session.target
+
+[Service]
+# ExecStart: update path if your distribution installs waybar somewhere else
+ExecStart=/usr/bin/waybar
+Restart=on-failure
+RestartSec=2
+KillMode=control-group
+StandardOutput=journal
+StandardError=journal
+# If your session needs a specific WAYLAND_DISPLAY, uncomment and set it here:
+# Environment=WAYLAND_DISPLAY=wayland-0
+
+[Install]
+WantedBy=default.target
