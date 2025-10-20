@@ -18,6 +18,15 @@ hex_to_rgb() {
     printf "%d,%d,%d" "0x${hex:0:2}" "0x${hex:2:2}" "0x${hex:4:2}"
 }
 
+get_brightness() {
+    local hex=${1#"#"}
+    local r=$((16#${hex:0:2}))
+    local g=$((16#${hex:2:2}))
+    local b=$((16#${hex:4:2}))
+    echo $(( (299*r + 587*g + 114*b) / 1000 ))
+}
+
+
 # --- Main Script ---
 mkdir -p "$OUT_DIR" "$WAYBAR_CSS_DIR"
 
@@ -46,9 +55,19 @@ fi
 # 3. Assign distinct colors for the theme
 BG="${palette[0]}"
 ACCENT1="${palette[1]}"
-ACCENT2="${palette[2]}"
-URGENT="${palette[3]}"
-FG="#ffffff" # Default foreground, to be adjusted
+ACCENT2="${palette[3]}" # Use a different accent
+URGENT="${palette[4]}"
+
+# Find the brightest color in the palette for the foreground text
+FG="${palette[1]}" # Default to the second color
+max_brightness=0
+for color in "${palette[@]}"; do
+    brightness=$(get_brightness "$color")
+    if (( brightness > max_brightness )); then
+        max_brightness=$brightness
+        FG=$color
+    fi
+done
 
 # Helper function to find a good contrasting foreground color
 find_contrast_fg() {
@@ -59,16 +78,16 @@ find_contrast_fg() {
     local lum_bg=$(( (299*r_bg + 587*g_bg + 114*b_bg) / 1000 ))
 
     if (( lum_bg > 128 )); then
-        FG="#000000"
+        echo "#000000"
     else
-        FG="#ffffff"
+        echo "#ffffff"
     fi
 }
 
-find_contrast_fg "$BG"
+FOCUSED_FG=$(find_contrast_fg "$ACCENT1")
+
 
 # Convert main colors to RGB for rgba() CSS function
-BG_RGB=$(hex_to_rgb "$BG")
 ACCENT2_RGB=$(hex_to_rgb "$ACCENT2")
 
 # 4. Generate the Waybar style.css
@@ -84,7 +103,7 @@ cat > "${WAYBAR_CSS_DIR}/style.css" << EOF
 }
 
 window#waybar {
-    background-color: rgba(${BG_RGB}, 0.7); /* Semi-transparent background */
+    background-color: transparent;
     color: ${FG};
 }
 
@@ -92,7 +111,7 @@ window#waybar {
     padding: 0 5px;
     background-color: transparent;
     color: ${FG};
-    border-radius: 8px 8px 0 0;
+    border-radius: 8px;
 }
 
 #workspaces button:hover {
@@ -101,7 +120,7 @@ window#waybar {
 
 #workspaces button.focused {
     background-color: ${ACCENT1};
-    color: #000000;
+    color: ${FOCUSED_FG};
 }
 
 #workspaces button.urgent {
@@ -112,7 +131,7 @@ window#waybar {
     padding: 0 10px;
     margin: 0 4px;
     background-color: rgba(${ACCENT2_RGB}, 0.5); /* Semi-transparent accent */
-    border-radius: 8px 8px 0 0;
+    border-radius: 8px;
 }
 
 #clock, #battery, #pulseaudio, #network, #custom-wp-button {
