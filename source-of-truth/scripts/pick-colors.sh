@@ -45,10 +45,10 @@ fi
 
 # 3. Assign distinct colors for the theme
 BG="${palette[0]}"
-ACCENT1="${palette[1]}"
-ACCENT2="${palette[2]}"
-URGENT="${palette[3]}"
-FG="#ffffff" # Default foreground, to be adjusted
+FG="${palette[1]}"
+ACCENT1="${palette[2]}"
+ACCENT2="${palette[3]}"
+URGENT="${palette[7]}"
 
 # Helper function to find a good contrasting foreground color
 find_contrast_fg() {
@@ -59,13 +59,42 @@ find_contrast_fg() {
     local lum_bg=$(( (299*r_bg + 587*g_bg + 114*b_bg) / 1000 ))
 
     if (( lum_bg > 128 )); then
-        FG="#000000"
+        echo "#000000"
     else
-        FG="#ffffff"
+        echo "#ffffff"
     fi
 }
 
-find_contrast_fg "$BG"
+# Helper function to check contrast and fall back if needed
+check_contrast() {
+    local bg_hex=${1#"#"}
+    local fg_hex=${2#"#"}
+    local r_bg=$((16#${bg_hex:0:2}))
+    local g_bg=$((16#${bg_hex:2:2}))
+    local b_bg=$((16#${bg_hex:4:2}))
+    local r_fg=$((16#${fg_hex:0:2}))
+    local g_fg=$((16#${fg_hex:2:2}))
+    local b_fg=$((16#${fg_hex:4:2}))
+
+    local lum_bg=$(( (299*r_bg + 587*g_bg + 114*b_bg) / 1000 ))
+    local lum_fg=$(( (299*r_fg + 587*g_fg + 114*b_fg) / 1000 ))
+
+    local diff=$((lum_bg - lum_fg))
+    if (( diff < 0 )); then
+        diff=$((-diff))
+    fi
+
+    if (( diff < 100 )); then
+        find_contrast_fg "$bg_hex"
+    else
+        echo "$2"
+    fi
+}
+
+
+FG=$(check_contrast "$BG" "$FG")
+FOCUSED_FG=$(check_contrast "$ACCENT1" "$FG")
+
 
 # Convert main colors to RGB for rgba() CSS function
 BG_RGB=$(hex_to_rgb "$BG")
@@ -101,7 +130,7 @@ window#waybar {
 
 #workspaces button.focused {
     background-color: ${ACCENT1};
-    color: #000000;
+    color: ${FOCUSED_FG};
 }
 
 #workspaces button.urgent {
