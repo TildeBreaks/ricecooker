@@ -92,7 +92,7 @@ FOCUSED_FG=$(find_contrast_fg "$ACCENT1")
 
 # Convert main colors to RGB for rgba() CSS function
 ACCENT2_RGB=$(hex_to_rgb "$ACCENT2")
-BG_TRANSPARENT="rgba($(hex_to_rgb "$BG"), 0.86)"
+ROFI_BG_TRANSPARENT="argb:DB${BG#"#"}"
 
 # 4. Generate the Waybar style.css
 cat > "${WAYBAR_CSS_DIR}/style.css" << EOF
@@ -188,7 +188,7 @@ cat > "${ROFI_DIR}/theme.rasi" << EOF
     text-selected:  ${FOCUSED_FG};
 
     /* Define transparent background */
-    background-transparent: ${BG_TRANSPARENT};
+    background-transparent: ${ROFI_BG_TRANSPARENT};
 }
 
 window {
