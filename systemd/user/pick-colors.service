@@ -3,6 +3,7 @@ Description=Apply a new desktop theme by picking colors from a random wallpaper.
 
 [Service]
 Type=oneshot
+ImportEnvironment=WAYLAND_DISPLAY,HYPRLAND_INSTANCE_SIGNATURE
 ExecStart=%h/.config/source-of-truth/scripts/pick-colors.sh
 
 [Install]
