@@ -5,7 +5,7 @@
     "height": 32,
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["network", "clock", "pulseaudio"],
-    "modules-right": ["battery", "custom/wp-button"],
+    "modules-right": ["tray", "battery", "custom/wp-button"],
 
     "hyprland/workspaces": {
         "on-click": "activate"
@@ -37,9 +37,13 @@
     },
 
     "custom/wp-button": {
-        "format": "🎨",
+        "format": "🪄",
         "tooltip": "Change wallpaper and theme",
         "on-click": "$HOME/.config/source-of-truth/scripts/pick-colors.sh",
         "interval": 0
+    },
+
+    "tray": {
+        "spacing": 10
     }
 }
