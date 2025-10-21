@@ -4,8 +4,8 @@
     "position": "top",
     "height": 32,
     "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "battery", "custom/wp-button"],
+    "modules-center": ["network", "clock", "pulseaudio"],
+    "modules-right": ["tray", "battery", "custom/wp-button"],
 
     "hyprland/workspaces": {
         "on-click": "activate"
@@ -37,9 +37,13 @@
     },
 
     "custom/wp-button": {
-        "format": "🎨",
+        "format": "🪄",
         "tooltip": "Change wallpaper and theme",
-        "on-click": "~/.config/source-of-truth/scripts/pick-colors.sh",
+        "on-click": "nohup $HOME/.config/source-of-truth/scripts/pick-colors.sh &",
         "interval": 0
+    },
+
+    "tray": {
+        "spacing": 10
     }
 }
