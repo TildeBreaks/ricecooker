@@ -1,0 +1,20 @@
+/*
+ * Rofi Configuration
+ *
+ * NOTE: This directory and its contents are meant to be placed
+ * in ~/.config/rofi/ on your local machine.
+ */
+
+configuration {
+    /* Set the mode to drun to search for .desktop files (applications). */
+    modi: "drun";
+
+    /* Set the application launcher mode to use. */
+    show-icons: true;
+
+    /* Sort entries using the fzf algorithm. */
+    sorting-method: "fzf";
+}
+
+/* Load the dynamically generated theme file. */
+@theme "theme.rasi"
