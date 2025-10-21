@@ -177,8 +177,8 @@ EOF
 if [[ -n "$WALLPAPER" ]] && command -v swww >/dev/null 2>&1; then
     swww img "$WALLPAPER" --transition-type any
 fi
-if command -v pkill >/dev/null 2>&1; then
-    pkill -USR1 waybar || true
+if command -v systemctl >/dev/null 2>&1; then
+    systemctl --user restart waybar.service
 fi
 if command -v hyprctl >/dev/null 2>&1; then
     hyprctl reload
