@@ -1,0 +1,9 @@
+[Unit]
+Description=Apply a new desktop theme by picking colors from a random wallpaper.
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/source-of-truth/scripts/pick-colors.sh
+
+[Install]
+WantedBy=default.target

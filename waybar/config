@@ -39,7 +39,7 @@
     "custom/wp-button": {
         "format": "🪄",
         "tooltip": "Change wallpaper and theme",
-        "on-click": "$HOME/.config/source-of-truth/scripts/launch-theme.sh",
+        "on-click": "systemctl --user start pick-colors.service",
         "interval": 0
     },
 
