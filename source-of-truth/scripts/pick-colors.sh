@@ -174,10 +174,15 @@ EOF
 
 
 # 7. Apply the theme
-if command -v swww >/dev/null 2>&1; then
+if [[ -n "$WALLPAPER" ]] && command -v swww >/dev/null 2>&1; then
     swww img "$WALLPAPER" --transition-type any
 fi
-systemctl --user restart waybar.service
+if command -v pkill >/dev/null 2>&1; then
+    pkill -USR1 waybar || true
+fi
+if command -v hyprctl >/dev/null 2>&1; then
+    hyprctl reload
+fi
 
 echo "Theme updated successfully!"
 echo "Wallpaper: $WALLPAPER"
